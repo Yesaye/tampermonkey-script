@@ -8,6 +8,7 @@
 // @icon         https://www.google.com/s2/favicons?domain=banksteeltech.com
 // @grant        none
 // @run-at       document-start
+// @updateURL    
 // ==/UserScript==
 
 (function() {
