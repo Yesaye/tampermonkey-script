@@ -8,6 +8,7 @@
 // @icon         https://www.google.com/s2/favicons?domain=tophub.today
 // @grant        none
 // @run-at       document-start
+// @updateURL    https://raw.githubusercontent.com/Yesaye/javascript/main/%E4%BB%8A%E6%97%A5%E7%83%AD%E6%A6%9C%E7%95%8C%E9%9D%A2%E4%BC%98%E5%8C%96.js
 // ==/UserScript==
 
 (function() {
