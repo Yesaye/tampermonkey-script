@@ -2,7 +2,7 @@
 // @name         今日热榜界面简化
 // @namespace    http://tampermonkey.net/
 // @version      1.0
-// @description  Yesaye
+// @description  仅适用于未登录状态的主界面
 // @author       Yesaye
 // @match        *://tophub.today/
 // @icon         https://www.google.com/s2/favicons?domain=tophub.today
