@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         今日热榜界面简化
 // @namespace    http://tampermonkey.net/
-// @version      1.2
+// @version      1.3
 // @description  仅适用于未登录状态的主界面
 // @author       Yesaye
 // @match        *://tophub.today/
