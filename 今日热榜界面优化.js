@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name         今日热榜界面简化
 // @namespace    http://tampermonkey.net/
-// @version      1.1
+// @version      1.0
 // @description  Yesaye
 // @author       Yesaye
-// @match        https://tophub.today/
+// @match        *://tophub.today/
 // @icon         https://www.google.com/s2/favicons?domain=tophub.today
 // @grant        none
 // @run-at       document-start
