@@ -25,12 +25,9 @@
 
     if (document.lastChild) {
         document.lastChild.appendChild(style_Add).textContent = style;
-        console.log("上面成功")
     } else { // 避免网站加载速度太慢的备用措施
         let timer1 = setInterval(function(){ // 每 10 毫秒检查一下 html 是否已存在
-            console.log("下面");
             if (document.lastChild) {
-                console.log("下面成功");
                 clearInterval(timer1); // 取消定时器
                 document.lastChild.appendChild(style_Add).textContent = style;
             }
