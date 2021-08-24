@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name         今日热榜界面简化
 // @namespace    http://tampermonkey.net/
-// @version      0.1
-// @description  try to take over the world!
-// @author       You
+// @version      1.1
+// @description  Yesaye
+// @author       Yesaye
 // @match        https://tophub.today/
 // @icon         https://www.google.com/s2/favicons?domain=tophub.today
 // @grant        none
