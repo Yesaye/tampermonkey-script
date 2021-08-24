@@ -8,7 +8,7 @@
 // @icon         https://www.google.com/s2/favicons?domain=banksteeltech.com
 // @grant        none
 // @run-at       document-start
-// @updateURL    
+// @updateURL    https://raw.githubusercontent.com/Yesaye/javascript/main/BONE%E9%A1%B5%E9%9D%A2%E4%BC%98%E5%8C%96.js
 // ==/UserScript==
 
 (function() {
