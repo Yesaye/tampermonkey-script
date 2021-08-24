@@ -2,7 +2,7 @@
 // @name         BONE页面优化
 // @namespace    http://tampermonkey.net/
 // @version      1.0
-// @description  Yesaye
+// @description  内部系统的页面优化脚本
 // @author       Yesaye
 // @match        *://bone.banksteeltech.com/*
 // @icon         https://www.google.com/s2/favicons?domain=banksteeltech.com
