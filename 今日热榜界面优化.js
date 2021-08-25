@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         今日热榜界面简化
 // @namespace    http://tampermonkey.net/
-// @version      2.1
+// @version      2.1.1
 // @description  仅适用于未登录状态的主界面 自定义背景颜色 卡片颜色
 // @author       Yesaye
 // @match        *://tophub.today/
@@ -228,12 +228,14 @@
                 if (e.target.tagName == "INPUT") {
                     addStyle("body {background-color: " + e.target.value + "}", "setColorStyle");
                     GM_setValue("today_BackgroundColor_value", e.target.value);
+                    backgroundColor = e.target.value;
                 }
             })
             document.getElementById("pickColor_CardColor").addEventListener("change", function (e) {
                 if (e.target.tagName == "INPUT") {
                     addStyle(".cc-cd {background-color: " + e.target.value + "}", "setColorStyle");
                     GM_setValue("today_CardColor_value", e.target.value);
+                    cardColor = e.target.value;
                 }
             })
             document.getElementById("resetColor").onclick = function () {
