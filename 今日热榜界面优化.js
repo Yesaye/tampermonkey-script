@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         今日热榜界面简化
 // @namespace    http://tampermonkey.net/
-// @version      2.0
-// @description  仅适用于未登录状态的主界面 自定义背景颜色和卡片颜色
+// @version      2.1
+// @description  仅适用于未登录状态的主界面 自定义背景颜色 卡片颜色
 // @author       Yesaye
 // @match        *://tophub.today/
 // @icon         https://www.google.com/s2/favicons?domain=tophub.today
@@ -241,7 +241,7 @@
             document.getElementById("resetColor").onclick = function () {
                 GM_setValue("today_BackgroundColor_value", null);
                 GM_setValue("today_CardColor_value", null);
-                document.querySelector('.setColorStyle').remove()
+                document.querySelectorAll('.setColorStyle').forEach((v)=>{v.remove()});
             }
         }, 100)
     }
@@ -250,4 +250,3 @@
 
 
 })();
-
