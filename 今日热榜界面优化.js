@@ -35,7 +35,6 @@
     addStyle(style, "setColorStyle");
 
     function addStyle(style, clazz) {
-        console.log(style);
         let style_Add = document.createElement('style');
         style_Add.className = clazz;
         if (document.lastChild) {
@@ -205,17 +204,16 @@
             </div>
             <div class="today_SettingMain">
                 <div id="today_BackgroundColor_box">
-                    <span>背景色</span></br>
-                    选取颜色<input id="pickColor_BackgroundColor" type="color" value="${backgroundColor}">
+                    背景色<input id="pickColor_BackgroundColor" type="color" value="${backgroundColor}">
                 </div>
-                <hr>
+                </hr>
                 <div id="today_CardColor_box">
-                    <span>卡片色</span></br>
-                    选取颜色<input id="pickColor_CardColor" type="color" value="${cardColor}">
+                    卡片色<input id="pickColor_CardColor" type="color" value="${cardColor}">
                 </div>
+                </hr>
+                <button id="resetColor">重置</button>
             </div>
             </hr>
-            <button id="resetColor">重置</button>
         </div>
     </div>`;
 
@@ -241,7 +239,9 @@
             document.getElementById("resetColor").onclick = function () {
                 GM_setValue("today_BackgroundColor_value", null);
                 GM_setValue("today_CardColor_value", null);
-                document.querySelectorAll('.setColorStyle').forEach((v)=>{v.remove()});
+                document.getElementById("pickColor_BackgroundColor").value= "#000000";
+                document.getElementById("pickColor_CardColor").value= "#000000";
+                document.querySelectorAll('.setColorStyle').forEach((v) => { v.remove() });
             }
         }, 100)
     }
