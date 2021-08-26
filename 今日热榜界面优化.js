@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         今日热榜界面简化
 // @namespace    http://tampermonkey.net/
-// @version      2.1.1
-// @description  仅适用于未登录状态的主界面 自定义背景颜色 卡片颜色
+// @version      2.2
+// @description  仅适用于未登录状态的主界面 自定义背景颜色 卡片颜色 卡片圆角
 // @author       Yesaye
 // @match        *://tophub.today/
 // @icon         https://www.google.com/s2/favicons?domain=tophub.today
