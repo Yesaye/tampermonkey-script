@@ -26,13 +26,19 @@
     style = "";
     var backgroundColor = GM_getValue("today_BackgroundColor_value")
     var cardColor = GM_getValue("today_CardColor_value")
+    var cardRadius = GM_getValue("today_CardRadius_value");
     if (backgroundColor != null) {
-        style = style + "body {background-color: " + backgroundColor + "}";
+        style += "body {background-color: " + backgroundColor + " !important;}";
     }
     if (cardColor != null) {
-        style = style + ".cc-cd {background-color: " + cardColor + "}";
+        style += ".cc-cd {background-color: " + cardColor + " !important;}";
     }
     addStyle(style, "setColorStyle");
+    style = "";
+    if (cardRadius != null) {
+        style += ".cc-cd {border-radius:"+cardRadius+"% !important;}";
+    }
+    addStyle(style, "setRadiusStyle");
 
     function addStyle(style, clazz) {
         let style_Add = document.createElement('style');
@@ -47,6 +53,12 @@
                 }
             });
         }
+    }
+
+    function setStyle(style, clazz) {
+        // 先删掉原来的
+        document.querySelectorAll('.'+clazz).forEach((v) => { v.remove() });
+        addStyle(style, clazz);
     }
 
 
@@ -76,13 +88,6 @@
 
     // 脚本设置
     function menu_setting(type, title, tips, menu) {
-
-        var colorArray = [
-            ["红1", "#EB9D60"], ["红2", "#F58F64"], ["红3", "#DE7866"], ["红4", "#F56564"], ["红5", "#EB60A3"],
-            ["蓝1", "#AC0CF7"], ["蓝2", "#5D0BD6"], ["蓝3", "#3418ED"], ["蓝4", "#0B26D6"], ["蓝5", "#0C6AF7"],
-            ["绿1", "#57F2B7"], ["绿2", "#5BFC91"], ["绿3", "#5EE665"], ["绿4", "#89FC5B"], ["绿5", "#BAF257"]
-        ];
-
         let _html = `<style class="today_SettingStyle">
         .today_SettingRoot {
             position: absolute;
@@ -206,14 +211,16 @@
                 <div id="today_BackgroundColor_box">
                     背景色<input id="pickColor_BackgroundColor" type="color" value="${backgroundColor}">
                 </div>
-                </hr>
                 <div id="today_CardColor_box">
                     卡片色<input id="pickColor_CardColor" type="color" value="${cardColor}">
                 </div>
-                </hr>
-                <button id="resetColor">重置</button>
+                <button id="resetColor">重置颜色</button>
+                <hr/>
+                <div id="today_CardRadius_box">
+                    卡片圆角<input type="range" min="0" max="50" value="${cardRadius}" id="today_CardRadius">
+                </div>
+                <button id="resetRadius">重置圆角</button>
             </div>
-            </hr>
         </div>
     </div>`;
 
@@ -223,27 +230,49 @@
             document.querySelector('.today_SettingClose').onclick = function () { this.parentElement.parentElement.parentElement.remove(); document.querySelector('.today_SettingStyle').remove(); }
             // 点击周围空白处 = 点击关闭按钮
             document.querySelector('.today_SettingBackdrop_2').onclick = function (event) { if (event.target == this) { document.querySelector('.today_SettingClose').click(); }; }
-            // 单选框点击事件
+            
+            // 选取背景色
             document.getElementById("pickColor_BackgroundColor").addEventListener("change", function (e) {
                 if (e.target.tagName == "INPUT") {
-                    addStyle("body {background-color: " + e.target.value + "}", "setColorStyle");
+                    addStyle("body {background-color: " + e.target.value + " !important;}", "setColorStyle");
                     GM_setValue("today_BackgroundColor_value", e.target.value);
                     backgroundColor = e.target.value;
                 }
             })
+            // 选取卡片色
             document.getElementById("pickColor_CardColor").addEventListener("change", function (e) {
                 if (e.target.tagName == "INPUT") {
-                    addStyle(".cc-cd {background-color: " + e.target.value + "}", "setColorStyle");
+                    addStyle(".cc-cd {background-color: " + e.target.value + " !important;}", "setColorStyle");
                     GM_setValue("today_CardColor_value", e.target.value);
                     cardColor = e.target.value;
                 }
             })
+            // 重置背景色和卡片色
             document.getElementById("resetColor").onclick = function () {
                 GM_setValue("today_BackgroundColor_value", null);
                 GM_setValue("today_CardColor_value", null);
                 document.getElementById("pickColor_BackgroundColor").value= "#000000";
                 document.getElementById("pickColor_CardColor").value= "#000000";
                 document.querySelectorAll('.setColorStyle').forEach((v) => { v.remove() });
+            }
+            
+            // 设置卡片圆角
+            document.getElementById("today_CardRadius_box").addEventListener("mousedown", f1, false)
+            function f1(){
+                document.getElementById("today_CardRadius_box").addEventListener("mousemove", f2, false)
+            }
+            function f2(e) {
+                cardRadius = document.getElementById("today_CardRadius").value;
+                GM_setValue("today_CardRadius_value", cardRadius);
+                setStyle(".cc-cd {border-radius:"+cardRadius+"% !important;}", "setRadiusStyle");
+            }
+            document.getElementById("today_CardRadius_box").addEventListener("mouseup", function(e){
+                document.getElementById("today_CardRadius_box").removeEventListener("mousemove", f2, false);
+            })
+            // 重置卡片圆角
+            document.getElementById("resetRadius").onclick = function () {
+                GM_setValue("today_CardRadius_value", null);
+                document.querySelectorAll('.setRadiusStyle').forEach((v) => { v.remove() });
             }
         }, 100)
     }
