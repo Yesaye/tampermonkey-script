@@ -2,7 +2,7 @@
 // @name         今日热榜界面简化
 // @namespace    http://tampermonkey.net/
 // @version      2.2.3
-// @description  仅适用于未登录状态的主界面 自定义背景颜色 卡片颜色 卡片圆角 更换了图标和标题
+// @description  仅适用于未登录状态的主界面 自定义背景颜色 卡片颜色 卡片圆角 修改了图标和标题
 // @author       Yesaye
 // @match        *://tophub.today/
 // @icon         https://www.google.com/s2/favicons?domain=tophub.today
@@ -65,7 +65,7 @@
         addStyle(style, clazz);
     }
 
-    const changeFavicon = link => {
+    function changeFavicon (link) {
         let $favicon = document.querySelectorAll('link[rel="icon"]');
         // If a <link rel="icon"> element already exists,
         // change its href to the given link.
