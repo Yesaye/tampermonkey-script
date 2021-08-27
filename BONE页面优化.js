@@ -13,7 +13,7 @@
 
 (function() {
 
-    let style = `.ivu-drawer-right {width: 1450px !important;}`;
+    let style = `.ivu-drawer-right {width: 80% !important;}`;
     let style_Add = document.createElement('style');
 
     if (document.lastChild) {
