@@ -19,7 +19,7 @@
 (function () {
 
     // 页面样式
-    let style = `#appbar {display: none !important;}#tabbar {display: none !important;}.cq {display: none !important;}.alert {display: none !important;}.eb-fb {display: none !important;}.c-d {padding: 0px !important;}.cc-cd-lb>img {display: none !important;} .cc-cd-lb>span,.cc-cd-sb-st {font-weight:1 !important;}`;
+    let style = `#appbar {display: none !important;}#tabbar {display: none !important;}.cq {display: none !important;}.alert {display: none !important;}.eb-fb {display: none !important;}.c-d {padding: 0px !important;}.cc-cd-lb>img {display: none !important;} .cc-cd-lb>span,.cc-cd-sb-st {font-weight:1 !important;color：#666666 !important}`;
     addStyle(style, "setTotalStyle");
 
     style = "";
