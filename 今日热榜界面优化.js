@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         今日热榜界面简化
 // @namespace    http://tampermonkey.net/
-// @version      2.2.5
+// @version      2.2.6
 // @description  仅适用于未登录状态的主界面（摸鱼向，仅为简化） 自定义背景颜色 卡片颜色 卡片圆角 修改了图标和标题
 // @author       Yesaye
 // @match        *://tophub.today/
@@ -19,7 +19,7 @@
 (function () {
 
     // 页面样式
-    let style = `#appbar {display: none !important;}#tabbar {display: none !important;}.cq {display: none !important;}.alert {display: none !important;}.eb-fb {display: none !important;}.c-d {padding: 0px !important;}.cc-cd-lb>img {display: none !important;} .cc-cd-lb>span,.cc-cd-sb-st {font-weight:1 !important;color：#666666 !important}`;
+    let style = `#appbar {display: none !important;}#tabbar {display: none !important;}.cq {display: none !important;}.alert {display: none !important;}.eb-fb {display: none !important;}.c-d {padding: 0px !important;}.cc-cd-lb>img {display: none !important;} .cc-cd-lb>span,.cc-cd-sb-st {font-weight:1 !important;color:#666666 !important;}`;
     addStyle(style, "setTotalStyle");
 
     style = "";
