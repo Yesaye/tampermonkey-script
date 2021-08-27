@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         今日热榜界面简化
 // @namespace    http://tampermonkey.net/
-// @version      2.2.2
-// @description  仅适用于未登录状态的主界面 自定义背景颜色 卡片颜色 卡片圆角
+// @version      2.2.3
+// @description  仅适用于未登录状态的主界面 自定义背景颜色 卡片颜色 卡片圆角 更换了图标和标题
 // @author       Yesaye
 // @match        *://tophub.today/
 // @icon         https://www.google.com/s2/favicons?domain=tophub.today
@@ -13,7 +13,6 @@
 // @grant        GM_setValue
 // @grant        GM_notification
 // @run-at       document-start
-// @updateURL    https://raw.githubusercontent.com/Yesaye/javascript/main/%E4%BB%8A%E6%97%A5%E7%83%AD%E6%A6%9C%E7%95%8C%E9%9D%A2%E4%BC%98%E5%8C%96.js
 
 // ==/UserScript==
 
@@ -36,9 +35,14 @@
     addStyle(style, "setColorStyle");
     style = "";
     if (cardRadius != null) {
-        style += ".cc-cd {border-radius:"+cardRadius+"% !important;}";
+        style += ".cc-cd {border-radius:" + cardRadius + "% !important;}";
     }
     addStyle(style, "setRadiusStyle");
+
+    // 更换图标
+    changeFavicon("https://www.baidu.com/favicon.ico");
+    // 更换标题
+    document.title="百度一下";
 
     function addStyle(style, clazz) {
         let style_Add = document.createElement('style');
@@ -57,10 +61,25 @@
 
     function setStyle(style, clazz) {
         // 先删掉原来的
-        document.querySelectorAll('.'+clazz).forEach((v) => { v.remove() });
+        document.querySelectorAll('.' + clazz).forEach((v) => { v.remove() });
         addStyle(style, clazz);
     }
 
+    const changeFavicon = link => {
+        let $favicon = document.querySelectorAll('link[rel="icon"]');
+        // If a <link rel="icon"> element already exists,
+        // change its href to the given link.
+        if ($favicon && $favicon.length != 0) {
+            $favicon.forEach(x => {
+                x.href = link;
+            })
+        } else {
+            $favicon = document.createElement("link");
+            $favicon.rel = "icon";
+            $favicon.href = link;
+            document.head.appendChild($favicon);
+        }
+    };
 
     // 菜单
     var menu_ALL = [
@@ -251,28 +270,28 @@
             document.getElementById("resetColor").onclick = function () {
                 GM_setValue("today_BackgroundColor_value", null);
                 GM_setValue("today_CardColor_value", null);
-                document.getElementById("pickColor_BackgroundColor").value= "#000000";
-                document.getElementById("pickColor_CardColor").value= "#000000";
+                document.getElementById("pickColor_BackgroundColor").value = "#000000";
+                document.getElementById("pickColor_CardColor").value = "#000000";
                 document.querySelectorAll('.setColorStyle').forEach((v) => { v.remove() });
             }
 
             // 设置卡片圆角
             document.getElementById("today_CardRadius_box").addEventListener("mousedown", f1, false)
-            function f1(){
+            function f1() {
                 document.getElementById("today_CardRadius_box").addEventListener("mousemove", f2, false)
             }
             function f2(e) {
                 cardRadius = document.getElementById("today_CardRadius").value;
                 GM_setValue("today_CardRadius_value", cardRadius);
-                setStyle(".cc-cd {border-radius:"+cardRadius+"% !important;}", "setRadiusStyle");
+                setStyle(".cc-cd {border-radius:" + cardRadius + "% !important;}", "setRadiusStyle");
             }
-            document.getElementById("today_CardRadius_box").addEventListener("mouseup", function(e){
+            document.getElementById("today_CardRadius_box").addEventListener("mouseup", function (e) {
                 document.getElementById("today_CardRadius_box").removeEventListener("mousemove", f2, false);
             })
             // 重置卡片圆角
             document.getElementById("resetRadius").onclick = function () {
                 GM_setValue("today_CardRadius_value", null);
-                document.getElementById("today_CardRadius").value= "50%";
+                document.getElementById("today_CardRadius").value = "50%";
                 document.querySelectorAll('.setRadiusStyle').forEach((v) => { v.remove() });
             }
         }, 100)
