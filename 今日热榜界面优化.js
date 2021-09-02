@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         今日热榜界面简化
 // @namespace    http://tampermonkey.net/
-// @version      2.2.6
-// @description  仅适用于未登录状态的主界面（摸鱼向，仅为简化） 自定义背景颜色 卡片颜色 卡片圆角 修改了图标和标题
+// @version      2.3.1
+// @description  仅适用于未登录状态的主界面（摸鱼向，仅为简化） 自定义背景颜色 卡片颜色 卡片圆角 修改了图标和标题 自定义卡片布局
 // @author       Yesaye
 // @match        *://tophub.today/
 // @icon         https://www.google.com/s2/favicons?domain=tophub.today
@@ -26,6 +26,7 @@
     var backgroundColor = GM_getValue("today_BackgroundColor_value")
     var cardColor = GM_getValue("today_CardColor_value")
     var cardRadius = GM_getValue("today_CardRadius_value");
+    var lingShowNum = GM_getValue("today_LineShow_value");
     if (backgroundColor != null) {
         style += "body {background-color: " + backgroundColor + " !important;}";
     }
@@ -38,6 +39,9 @@
         style += ".cc-cd {border-radius:" + cardRadius + "% !important;}";
     }
     addStyle(style, "setRadiusStyle");
+    if (lingShowNum != null) {
+        changeLineShow(lingShowNum);
+    }
 
     // 更换图标
     changeFavicon("https://www.baidu.com/favicon.ico");
@@ -65,6 +69,7 @@
         addStyle(style, clazz);
     }
 
+    // 更换图标
     function changeFavicon (link) {
         let $favicon = document.querySelectorAll('link[rel="icon"]');
         // If a <link rel="icon"> element already exists,
@@ -80,6 +85,13 @@
             document.head.appendChild($favicon);
         }
     };
+
+    // 更改卡片布局
+    function changeLineShow (num) {
+        var lineShowNum = (100-num)/num;
+        GM_setValue("today_LineShow_value", num);
+        setStyle(".cc-cd {width: "+lineShowNum+"% !important;}", "setLineShowStyle");
+    }
 
     // 菜单
     var menu_ALL = [
@@ -239,6 +251,11 @@
                     卡片圆角<input type="range" min="0" max="50" value="${cardRadius}" id="today_CardRadius">
                 </div>
                 <button id="resetRadius">重置圆角</button>
+                <hr/>
+                <div id="showTypeBox">
+                    <button id="twoLineShow">双列显示</button><br/>
+                    <button id="fourLineShow">四列显示</button>
+                </div>
             </div>
         </div>
     </div>`;
@@ -293,6 +310,13 @@
                 GM_setValue("today_CardRadius_value", null);
                 document.getElementById("today_CardRadius").value = "50%";
                 document.querySelectorAll('.setRadiusStyle').forEach((v) => { v.remove() });
+            }
+            // 双列显示和四列显示
+            document.getElementById("twoLineShow").onclick = function () {
+                changeLineShow(2);
+            }
+            document.getElementById("fourLineShow").onclick = function () {
+                changeLineShow(4);
             }
         }, 100)
     }
