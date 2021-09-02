@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         今日热榜界面简化
 // @namespace    http://tampermonkey.net/
-// @version      2.3.2
+// @version      2.3.3
 // @description  仅适用于未登录状态的主界面（摸鱼向，仅为简化） 自定义背景颜色 卡片颜色 卡片圆角 修改了图标和标题 自定义卡片布局
 // @author       Yesaye
 // @match        *://tophub.today/
@@ -309,13 +309,14 @@
                 GM_setValue("today_CardColor_value", null);
                 document.getElementById("pickColor_BackgroundColor").value = "#000000";
                 document.getElementById("pickColor_CardColor").value = "#000000";
-                removeStyle('.setColorStyle');
+                removeStyle('setColorStyle');
             }
 
             // 设置卡片圆角
             document.getElementById("today_CardRadius_box").addEventListener("mousedown", f1, false)
             function f1() {
-                document.getElementById("today_CardRadius_box").addEventListener("mousemove", f2, false)
+                document.getElementById("today_CardRadius_box").addEventListener("mousemove", f2, false);
+                document.getElementById("today_CardRadius_box").addEventListener("click", f2, false);
             }
             function f2(e) {
                 cardRadius = document.getElementById("today_CardRadius").value;
@@ -329,7 +330,7 @@
             document.getElementById("resetRadius").onclick = function () {
                 GM_setValue("today_CardRadius_value", null);
                 document.getElementById("today_CardRadius").value = "50%";
-                removeStyle('.setRadiusStyle');
+                removeStyle('setRadiusStyle');
             }
             // 双列显示和四列显示
             document.getElementById("twoLineShow").onclick = function () {
