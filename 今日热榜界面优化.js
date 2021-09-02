@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         今日热榜界面简化
 // @namespace    http://tampermonkey.net/
-// @version      2.3.1
+// @version      2.3.2
 // @description  仅适用于未登录状态的主界面（摸鱼向，仅为简化） 自定义背景颜色 卡片颜色 卡片圆角 修改了图标和标题 自定义卡片布局
 // @author       Yesaye
 // @match        *://tophub.today/
@@ -65,8 +65,12 @@
 
     function setStyle(style, clazz) {
         // 先删掉原来的
-        document.querySelectorAll('.' + clazz).forEach((v) => { v.remove() });
+        removeStyle(clazz);
         addStyle(style, clazz);
+    }
+
+    function removeStyle(clazz){
+        document.querySelectorAll('.' + clazz).forEach((v) => { v.remove() });
     }
 
     // 更换图标
@@ -91,6 +95,22 @@
         var lineShowNum = (100-num)/num;
         GM_setValue("today_LineShow_value", num);
         setStyle(".cc-cd {width: "+lineShowNum+"% !important;}", "setLineShowStyle");
+        if (num==2) {
+            twoLineStyle();
+        }
+        if (num==4) {
+            fourLineStyle();
+        }
+    }
+    function twoLineStyle(){
+        var style = "#twoLineShow {color: #ffffff; background: #37c375; border: none; border-radius: 5px; margin: 2px 0 2px 2px; cursor: pointer;}";
+        removeStyle("setFourLineButtonStyle");
+        setStyle(style, "setTwoLineButtonStyle");
+    }
+    function fourLineStyle(){
+        var style = "#fourLineShow {color: #ffffff; background: #37c375; border: none; border-radius: 5px; margin: 2px 0 2px 2px; cursor: pointer;}";
+        removeStyle("setTwoLineButtonStyle");
+        setStyle(style, "setFourLineButtonStyle");
     }
 
     // 菜单
@@ -253,7 +273,7 @@
                 <button id="resetRadius">重置圆角</button>
                 <hr/>
                 <div id="showTypeBox">
-                    <button id="twoLineShow">双列显示</button><br/>
+                    <button id="twoLineShow">双列显示</button>
                     <button id="fourLineShow">四列显示</button>
                 </div>
             </div>
@@ -289,7 +309,7 @@
                 GM_setValue("today_CardColor_value", null);
                 document.getElementById("pickColor_BackgroundColor").value = "#000000";
                 document.getElementById("pickColor_CardColor").value = "#000000";
-                document.querySelectorAll('.setColorStyle').forEach((v) => { v.remove() });
+                removeStyle('.setColorStyle');
             }
 
             // 设置卡片圆角
@@ -309,14 +329,16 @@
             document.getElementById("resetRadius").onclick = function () {
                 GM_setValue("today_CardRadius_value", null);
                 document.getElementById("today_CardRadius").value = "50%";
-                document.querySelectorAll('.setRadiusStyle').forEach((v) => { v.remove() });
+                removeStyle('.setRadiusStyle');
             }
             // 双列显示和四列显示
             document.getElementById("twoLineShow").onclick = function () {
                 changeLineShow(2);
+                twoLineStyle();
             }
             document.getElementById("fourLineShow").onclick = function () {
                 changeLineShow(4);
+                fourLineStyle();
             }
         }, 100)
     }
