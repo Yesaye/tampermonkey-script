@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         今日热榜界面简化
 // @namespace    http://tampermonkey.net/
-// @version      2.3.5
+// @version      2.3.6
 // @description  仅适用于未登录状态的主界面（摸鱼向，仅为简化） 自定义背景颜色 卡片颜色 卡片圆角 卡片高度 修改了图标和标题 自定义卡片布局
 // @author       Yesaye
 // @match        *://tophub.today/
@@ -19,7 +19,7 @@
 (function () {
 
     // 页面样式
-    let style = `#appbar {display: none !important;}#tabbar {display: none !important;}.cq {display: none !important;}.alert {display: none !important;}.eb-fb {display: none !important;}.c-d {padding: 0px !important;}.cc-cd-lb>img {display: none !important;} .cc-cd-lb>span,.cc-cd-sb-st {font-weight:1 !important;color:#666666 !important;} .cc-cd{transition: all 500ms;} body{transition: all 500ms;}`;
+    let style = `.nano{transition: all 500ms;}#appbar {display: none !important;}#tabbar {display: none !important;}.cq {display: none !important;}.alert {display: none !important;}.eb-fb {display: none !important;}.c-d {padding: 0px !important;}.cc-cd-lb>img {display: none !important;} .cc-cd-lb>span,.cc-cd-sb-st {font-weight:1 !important;color:#666666 !important;} .cc-cd{transition: all 500ms;} body{transition: all 500ms;}`;
     addStyle(style, "setTotalStyle");
 
     style = "";
@@ -37,7 +37,7 @@
     addStyle(style, "setColorStyle");
     style = "";
     if (cardRadius != null) {
-        style += ".cc-cd {border-radius:" + cardRadius + "% !important;}";
+        style += ".cc-cd {border-radius:" + cardRadius + "px !important;}";
     }
     if (cardHeight != null) {
         style += ".nano {height:" + cardHeight + "px !important;}";
@@ -273,7 +273,7 @@
                 <button id="resetColor">重置颜色</button>
                 <hr/>
                 <div id="today_CardRadius_box">
-                    卡片圆角<input type="range" min="0" max="50" value="${cardRadius}" id="today_CardRadius">
+                    卡片圆角<input type="range" min="0" max="200" value="${cardRadius}" id="today_CardRadius">
                 </div>
                 <button id="resetRadius">重置圆角</button>
                 <div id="today_CardHeight_box">
@@ -330,7 +330,7 @@
             function f2(e) {
                 cardRadius = document.getElementById("today_CardRadius").value;
                 GM_setValue("today_CardRadius_value", cardRadius);
-                setStyle(".cc-cd {border-radius:" + cardRadius + "% !important;}", "setRadiusStyle");
+                setStyle(".cc-cd {border-radius:" + cardRadius + "px !important;}", "setRadiusStyle");
             }
             document.getElementById("today_CardRadius_box").addEventListener("mouseup", function (e) {
                 document.getElementById("today_CardRadius_box").removeEventListener("mousemove", f2, false);
@@ -338,26 +338,26 @@
             // 重置卡片圆角
             document.getElementById("resetRadius").onclick = function () {
                 GM_setValue("today_CardRadius_value", null);
-                document.getElementById("today_CardRadius").value = "50%";
+                document.getElementById("today_CardRadius").value = "100";
                 removeStyle('setRadiusStyle');
             }
             // 设置卡片高度
-            document.getElementById("today_CardHeight_box").addEventListener("mousedown", f1, false)
-            function f1() {
-                document.getElementById("today_CardHeight_box").addEventListener("mousemove", f2, false);
-                document.getElementById("today_CardHeight_box").addEventListener("click", f2, false);
+            document.getElementById("today_CardHeight_box").addEventListener("mousedown", f12, false)
+            function f12() {
+                document.getElementById("today_CardHeight_box").addEventListener("mousemove", f22, false);
+                document.getElementById("today_CardHeight_box").addEventListener("click", f22, false);
             }
-            function f2(e) {
+            function f22(e) {
                 cardHeight = document.getElementById("today_CardHeight").value;
                 GM_setValue("today_CardHeight_value", cardHeight);
                 setStyle(".nano {height:" + cardHeight + "px !important;}", "setHeightStyle");
             }
             document.getElementById("today_CardHeight_box").addEventListener("mouseup", function (e) {
-                document.getElementById("today_CardHeight_box").removeEventListener("mousemove", f2, false);
+                document.getElementById("today_CardHeight_box").removeEventListener("mousemove", f22, false);
             })
             // 重置卡片高度
             document.getElementById("resetHeight").onclick = function () {
-                GM_setValue("today_CardHeight_value", null);
+                GM_setValue("today_CardHeight_value", 300);
                 document.getElementById("today_CardHeight").value = "300";
                 removeStyle('setHeightStyle');
             }
