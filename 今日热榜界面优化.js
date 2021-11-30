@@ -26,6 +26,7 @@
     var backgroundColor = GM_getValue("today_BackgroundColor_value")
     var cardColor = GM_getValue("today_CardColor_value")
     var cardRadius = GM_getValue("today_CardRadius_value");
+    var cardHeight = GM_getValue("today_CardHeight_value");
     var lingShowNum = GM_getValue("today_LineShow_value");
     if (backgroundColor != null) {
         style += "body {background-color: " + backgroundColor + " !important;}";
@@ -38,7 +39,11 @@
     if (cardRadius != null) {
         style += ".cc-cd {border-radius:" + cardRadius + "% !important;}";
     }
+    if (cardHeight != null) {
+        style += ".nano {height:" + cardHeight + "px !important;}";
+    }
     addStyle(style, "setRadiusStyle");
+    addStyle(style, "setHeightStyle");
     if (lingShowNum != null) {
         changeLineShow(lingShowNum);
     }
@@ -46,7 +51,7 @@
     // 更换图标
     changeFavicon("https://www.baidu.com/favicon.ico");
     // 更换标题
-    document.title="百度一下";
+    document.title = "百度一下";
 
     function addStyle(style, clazz) {
         let style_Add = document.createElement('style');
@@ -69,12 +74,12 @@
         addStyle(style, clazz);
     }
 
-    function removeStyle(clazz){
+    function removeStyle(clazz) {
         document.querySelectorAll('.' + clazz).forEach((v) => { v.remove() });
     }
 
     // 更换图标
-    function changeFavicon (link) {
+    function changeFavicon(link) {
         let $favicon = document.querySelectorAll('link[rel="icon"]');
         // If a <link rel="icon"> element already exists,
         // change its href to the given link.
@@ -91,23 +96,23 @@
     };
 
     // 更改卡片布局
-    function changeLineShow (num) {
-        var lineShowNum = (100-num)/num;
+    function changeLineShow(num) {
+        var lineShowNum = (100 - num) / num;
         GM_setValue("today_LineShow_value", num);
-        setStyle(".cc-cd {width: "+lineShowNum+"% !important;}", "setLineShowStyle");
-        if (num==2) {
+        setStyle(".cc-cd {width: " + lineShowNum + "% !important;}", "setLineShowStyle");
+        if (num == 2) {
             twoLineStyle();
         }
-        if (num==4) {
+        if (num == 4) {
             fourLineStyle();
         }
     }
-    function twoLineStyle(){
+    function twoLineStyle() {
         var style = "#twoLineShow {color: #ffffff; background: #37c375; border: none; border-radius: 5px; margin: 2px 0 2px 2px; cursor: pointer;}";
         removeStyle("setFourLineButtonStyle");
         setStyle(style, "setTwoLineButtonStyle");
     }
-    function fourLineStyle(){
+    function fourLineStyle() {
         var style = "#fourLineShow {color: #ffffff; background: #37c375; border: none; border-radius: 5px; margin: 2px 0 2px 2px; cursor: pointer;}";
         removeStyle("setTwoLineButtonStyle");
         setStyle(style, "setFourLineButtonStyle");
@@ -271,6 +276,10 @@
                     卡片圆角<input type="range" min="0" max="50" value="${cardRadius}" id="today_CardRadius">
                 </div>
                 <button id="resetRadius">重置圆角</button>
+                <div id="today_CardHeight_box">
+                    卡片高度<input type="range" min="0" max="2000" value="${cardHeight}" id="today_CardHeight">
+                </div>
+                <button id="resetHeight">重置高度</button>
                 <hr/>
                 <div id="showTypeBox">
                     <button id="twoLineShow">双列显示</button>
@@ -332,6 +341,27 @@
                 document.getElementById("today_CardRadius").value = "50%";
                 removeStyle('setRadiusStyle');
             }
+            // 设置卡片高度
+            document.getElementById("today_CardHeight_box").addEventListener("mousedown", f1, false)
+            function f1() {
+                document.getElementById("today_CardHeight_box").addEventListener("mousemove", f2, false);
+                document.getElementById("today_CardHeight_box").addEventListener("click", f2, false);
+            }
+            function f2(e) {
+                cardHeight = document.getElementById("today_CardHeight").value;
+                GM_setValue("today_CardHeight_value", cardHeight);
+                setStyle(".nano {height:" + cardHeight + "px !important;}", "setHeightStyle");
+            }
+            document.getElementById("today_CardHeight_box").addEventListener("mouseup", function (e) {
+                document.getElementById("today_CardHeight_box").removeEventListener("mousemove", f2, false);
+            })
+            // 重置卡片高度
+            document.getElementById("resetHeight").onclick = function () {
+                GM_setValue("today_CardHeight_value", null);
+                document.getElementById("today_CardHeight").value = "300";
+                removeStyle('setHeightStyle');
+            }
+
             // 双列显示和四列显示
             document.getElementById("twoLineShow").onclick = function () {
                 changeLineShow(2);
