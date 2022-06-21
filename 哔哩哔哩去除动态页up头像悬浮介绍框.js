@@ -2,7 +2,7 @@
 // @name         哔哩哔哩去除动态页up头像悬浮介绍框
 // @namespace    http://tampermonkey.net/
 // @version      0.1
-// @description  哔哩哔哩去除动态页up头像悬浮介绍框
+// @description  去除烦人的介绍框框
 // @author       Yesaye
 // @match        *://t.bilibili.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=bilibili.com
