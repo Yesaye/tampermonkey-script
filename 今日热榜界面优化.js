@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         今日热榜界面简化
 // @namespace    http://tampermonkey.net/
-// @version      2.3.6
-// @description  仅适用于未登录状态的主界面（摸鱼向，仅为简化） 自定义背景颜色 卡片颜色 卡片圆角 卡片高度 修改了图标和标题 自定义卡片布局
+// @version      2.4.2.2
+// @description  仅适用于未登录状态的主界面（摸鱼向，仅为简化） 自定义背景颜色 卡片颜色 文字颜色 卡片圆角 卡片高度 修改了图标和标题 自定义卡片布局 去广告
 // @author       Yesaye
 // @match        *://tophub.today/
 // @icon         https://www.google.com/s2/favicons?domain=tophub.today
@@ -13,18 +13,43 @@
 // @grant        GM_setValue
 // @grant        GM_notification
 // @run-at       document-start
+// @license      MIT
 
+// @downloadURL https://update.greasyfork.org/scripts/431421/%E4%BB%8A%E6%97%A5%E7%83%AD%E6%A6%9C%E7%95%8C%E9%9D%A2%E7%AE%80%E5%8C%96.user.js
+// @updateURL https://update.greasyfork.org/scripts/431421/%E4%BB%8A%E6%97%A5%E7%83%AD%E6%A6%9C%E7%95%8C%E9%9D%A2%E7%AE%80%E5%8C%96.meta.js
 // ==/UserScript==
 
 (function () {
 
     // 页面样式
-    let style = `.nano{transition: all 500ms;}#appbar {display: none !important;}#tabbar {display: none !important;}.cq {display: none !important;}.alert {display: none !important;}.eb-fb {display: none !important;}.c-d {padding: 0px !important;}.cc-cd-lb>img {display: none !important;} .cc-cd-lb>span,.cc-cd-sb-st {font-weight:1 !important;color:#666666 !important;} .cc-cd{transition: all 500ms;} body{transition: all 500ms;}`;
+    let style = `
+    .abcdefg{display: none;}.
+    bc > :nth-child(-n+2) {display: none;}
+    .nano{transition: all 500ms;}
+    #appbar {display: none !important;}
+    #tabbar {display: none !important;}
+    .cq {display: none !important;}
+    .alert {display: none !important;}
+    .eb-fb {display: none !important;}
+    .c-d {padding: 0px !important;}
+    .cc-cd-lb>img {display: none !important;}
+    .cc-cd-lb>span,
+    .cc-cd-sb-st {font-weight:1 !important;color:#666666}
+    .cc-cd {transition: all 500ms;margin-bottom:1%}
+    body {transition: all 500ms; padding: 20px 0 0 0}
+    .mp::after {border-bottom:none}
+    .cc-cd-ih {border-bottom:none}
+    .cc-cd-if {border-top:none}
+    .bc > div:nth-child(-n+2) {display: none;}
+    .bc-tc {display:none}
+    .bc-cc {padding-bottom: 0;padding-top:0}
+    `;
     addStyle(style, "setTotalStyle");
 
     style = "";
     var backgroundColor = GM_getValue("today_BackgroundColor_value")
     var cardColor = GM_getValue("today_CardColor_value")
+    var textColor = GM_getValue("today_TextColor_value")
     var cardRadius = GM_getValue("today_CardRadius_value");
     var cardHeight = GM_getValue("today_CardHeight_value");
     var lingShowNum = GM_getValue("today_LineShow_value");
@@ -33,6 +58,9 @@
     }
     if (cardColor != null) {
         style += ".cc-cd {background-color: " + cardColor + " !important;}";
+    }
+    if (textColor != null) {
+        style += ".cc-cd-cb .cc-cd-cb-l .cc-cd-cb-ll .t {color:" + textColor + "} .cc-cd-cb .cc-cd-cb-l .cc-cd-cb-ll .s {color:" + textColor + "} .cc-cd-cb .cc-cd-cb-l .cc-cd-cb-ll .s.h {color:" + textColor + "} .cc-cd-cb .cc-cd-cb-l .cc-cd-cb-ll .e {color:" + textColor + "} .cc-cd-if .i-h {color:" + textColor + "} .cc-cd-if .i-o {color:" + textColor + "} .cc-cd-lb>span, .cc-cd-sb-st {color:" + textColor + "}";
     }
     addStyle(style, "setColorStyle");
     style = "";
@@ -80,7 +108,7 @@
 
     // 更换图标
     function changeFavicon(link) {
-        let $favicon = document.querySelectorAll('link[rel="icon"]');
+        let $favicon = document.querySelectorAll('link[rel*="icon"]');
         // If a <link rel="icon"> element already exists,
         // change its href to the given link.
         if ($favicon && $favicon.length != 0) {
@@ -248,6 +276,14 @@
         [data-theme="dark"] .today_SettingMain hr {
             border: 0.5px solid #2d333b;
         }
+
+        .today_SettingClose .Zi--Close{
+            transition: transform 1.8s ease-out;
+        }
+
+        .today_SettingClose:hover .Zi--Close {
+            transform: /*scale(1.5)*/ rotate(900deg)
+        }
     </style>
     <div class="today_SettingBackdrop_1">
         <div class="today_SettingBackdrop_2"></div>
@@ -269,6 +305,9 @@
                 </div>
                 <div id="today_CardColor_box">
                     卡片色<input id="pickColor_CardColor" type="color" value="${cardColor}">
+                </div>
+                <div id="today_CardColor_box">
+                    文字色<input id="pickColor_TextColor" type="color" value="${textColor}">
                 </div>
                 <button id="resetColor">重置颜色</button>
                 <hr/>
@@ -312,12 +351,21 @@
                     cardColor = e.target.value;
                 }
             })
-            // 重置背景色和卡片色
+            // 选取文字色
+            document.getElementById("pickColor_TextColor").addEventListener("change", function (e) {
+                if (e.target.tagName == "INPUT") {
+                    addStyle(".cc-cd-cb .cc-cd-cb-l .cc-cd-cb-ll .t {color:" + e.target.value + "} .cc-cd-cb .cc-cd-cb-l .cc-cd-cb-ll .s {color:" + e.target.value + "} .cc-cd-cb .cc-cd-cb-l .cc-cd-cb-ll .s.h {color:" + e.target.value + "} .cc-cd-cb .cc-cd-cb-l .cc-cd-cb-ll .e {color:" + e.target.value + "} .cc-cd-if .i-h {color:" + e.target.value + "} .cc-cd-if .i-o {color:" + e.target.value + "} .cc-cd-lb>span, .cc-cd-sb-st {color:" + e.target.value + "}", "setColorStyle");
+                    GM_setValue("today_TextColor_value", e.target.value);
+                    textColor = e.target.value;
+                }
+            })
+            // 重置背景色和卡片色和文字色
             document.getElementById("resetColor").onclick = function () {
                 GM_setValue("today_BackgroundColor_value", null);
                 GM_setValue("today_CardColor_value", null);
                 document.getElementById("pickColor_BackgroundColor").value = "#000000";
                 document.getElementById("pickColor_CardColor").value = "#000000";
+                document.getElementById("pickColor_TextColor").value = "#000000";
                 removeStyle('setColorStyle');
             }
 
