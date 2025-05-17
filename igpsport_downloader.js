@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         iGPSPORT 运动记录下载助手
+// @name         iGPSPORT运动记录下载助手
 // @namespace    http://tampermonkey.net/
 // @version      1.0.0
 // @description  iGPSPORT的运动记录fit文件的增加批量下载功能
