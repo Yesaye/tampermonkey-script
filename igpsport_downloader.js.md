@@ -7,6 +7,6 @@
 3. 点击“下载当前页”按钮，会下载当前页的所有运动记录。
 4. 点击“下载全部”按钮，会下载所有运动记录，由于数据量较大，可能需要一些时间，请耐心等待。
 
-![alt text](image-1.png)
+![alt text](./assets/image-1.png)
 
-![alt text](image.png)
+![alt text](./assets/image.png)
