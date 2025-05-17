@@ -1,5 +1,9 @@
 # iGPSPORT运动记录下载助手
 
+> 脚本代码地址: [[tampermonkey-script](https://github.com/Yesaye/tampermonkey-script)](https://github.com/Yesaye/tampermonkey-script)
+
+iGPSPORT的运动记录fit文件的增加批量下载功能
+
 ## 使用方法
 
 1. 打开 iGPSPORT 的运动记录页面，网址为: https://app.zh.igpsport.com/sport/history/list

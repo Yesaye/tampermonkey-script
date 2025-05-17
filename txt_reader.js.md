@@ -1,5 +1,7 @@
 # txt阅读器（pixiv风格）
 
+> 脚本代码地址: [[tampermonkey-script](https://github.com/Yesaye/tampermonkey-script)](https://github.com/Yesaye/tampermonkey-script)
+
 阅读界面参考的pixiv的小说界面样式
 
 ## 部分不生效解决办法
