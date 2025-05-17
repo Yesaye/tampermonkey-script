@@ -7,7 +7,8 @@
 // @match        https://app.zh.igpsport.com/sport/history/list
 // @grant        GM_addStyle
 // @grant        unsafeWindow
-// @license MIT
+// @license      MIT
+// @icon         https://www.strava.com/icon-strava-chrome-144.png
 // ==/UserScript==
 
 (function() {
