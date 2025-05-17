@@ -7,6 +7,7 @@
 // @match        https://app.zh.igpsport.com/sport/history/list
 // @grant        GM_addStyle
 // @grant        unsafeWindow
+// @license MIT
 // ==/UserScript==
 
 (function() {
