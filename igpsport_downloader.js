@@ -3,7 +3,7 @@
 // @namespace    http://tampermonkey.net/
 // @version      1.0.0
 // @description  iGPSPORT的运动记录fit文件的增加批量下载功能
-// @author       script
+// @author       Yesaye
 // @match        https://app.zh.igpsport.com/sport/history/list
 // @grant        GM_addStyle
 // @grant        unsafeWindow
