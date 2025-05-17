@@ -316,7 +316,7 @@
         }
     }
 
-    // 获取分页活动列表
+    // 获取分页运动记录列表
     async function fetchActivityList(pageNo, authToken) {
         try {
             const response = await fetch(`https://prod.zh.igpsport.com/service/web-gateway/web-analyze/activity/queryMyActivity?pageNo=${pageNo}&pageSize=20&reqType=0&sort=1`, {
@@ -351,7 +351,7 @@
         }
     }
 
-    // 获取活动详情
+    // 获取运动记录详情
     async function fetchActivityDetail(rideId, authToken) {
         try {
             const response = await fetch(`https://prod.zh.igpsport.com/service/web-gateway/web-analyze/activity/queryActivityDetail/${rideId}`, {
@@ -478,18 +478,18 @@
             }
             
             // 获取总页数
-            addLog('正在获取活动列表...', 'info');
+            addLog('正在获取运动记录列表...', 'info');
             const firstPageData = await fetchActivityList(1, authToken);
             const totalPages = firstPageData.data.totalPage;
             const totalItems = firstPageData.data.totalRows;
             
             if (totalItems === 0) {
-                showToast('没有可下载的活动数据', 'info');
-                throw new Error('没有可下载的活动数据');
+                showToast('没有可下载的运动记录数据', 'info');
+                throw new Error('没有可下载的运动记录数据');
             }
             
-            showToast(`开始下载 ${totalItems} 个活动文件`, 'primary', 5000);
-            addLog(`发现 ${totalItems} 个活动文件（共${totalPages}页）`, 'info');
+            showToast(`开始下载 ${totalItems} 个运动记录文件`, 'primary', 5000);
+            addLog(`发现 ${totalItems} 个运动记录文件（共${totalPages}页）`, 'info');
             
             let processedItems = 0;
             let failedItems = [];
@@ -501,10 +501,10 @@
                 const pageData = await fetchActivityList(page, authToken);
                 const items = pageData.data.rows;
                 
-                // 处理当前页的每个活动
+                // 处理当前页的每个运动记录
                 for (const item of items) {
                     try {
-                        addLog(`🔍 获取活动 ${item.rideId} 详情...`, 'info');
+                        addLog(`🔍 获取运动记录 ${item.rideId} 详情...`, 'info');
                         const detail = await fetchActivityDetail(item.rideId, authToken);
                         const { fitUrl, startTime } = detail.data;
                         
@@ -545,8 +545,8 @@
                     });
                 }
             } else {
-                showToast(`全部 ${processedItems} 个活动文件下载成功！`, 'success', 8000);
-                addLog(`🎉 全部 ${processedItems} 个活动文件下载成功！`, 'success');
+                showToast(`全部 ${processedItems} 个运动记录文件下载成功！`, 'success', 8000);
+                addLog(`🎉 全部 ${processedItems} 个运动记录文件下载成功！`, 'success');
             }
             
         } catch (error) {
@@ -559,7 +559,7 @@
             if (downloadBtn) {
                 downloadBtn.classList.remove('active');
                 downloadBtn.disabled = false;
-                downloadBtn.innerHTML = '<span class="ant-btn-icon"><i class="fa fa-download"></i></span><span>下载全部活动</span>';
+                downloadBtn.innerHTML = '<span class="ant-btn-icon"><i class="fa fa-download"></i></span><span>下载全部</span>';
             }
             
             // 重置进度条
@@ -582,7 +582,7 @@
         return parseInt(pageNumber, 10);
     }
 
-    // 新增：下载当前页活动主函数
+    // 新增：下载当前页运动记录主函数
     async function downloadCurrentPageActivities() {
         if (isDownloading) {
             showToast('正在下载中，请稍后...', 'info');
@@ -612,26 +612,26 @@
             if (!authToken) throw new Error('认证Token获取失败');
 
             // 获取当前页数据
-            addLog(`正在获取第 ${currentPage} 页活动列表...`, 'info');
+            addLog(`正在获取第 ${currentPage} 页运动记录列表...`, 'info');
             const pageData = await fetchActivityList(currentPage, authToken);
             const items = pageData.data.rows;
             const totalItems = items.length;
 
             if (totalItems === 0) {
-                showToast(`第 ${currentPage} 页没有活动数据`, 'info');
-                throw new Error('无活动数据');
+                showToast(`第 ${currentPage} 页没有运动记录数据`, 'info');
+                throw new Error('无运动记录数据');
             }
 
-            showToast(`开始下载当前页 ${totalItems} 个活动文件`, 'primary', 5000); // 使用info类型提示
-            addLog(`当前页发现 ${totalItems} 个活动文件`, 'info');
+            showToast(`开始下载当前页 ${totalItems} 个运动记录文件`, 'primary', 5000); // 使用info类型提示
+            addLog(`当前页发现 ${totalItems} 个运动记录文件`, 'info');
 
             let processedItems = 0;
             let failedItems = [];
 
-            // 处理当前页所有活动
+            // 处理当前页所有运动记录
             for (const item of items) {
                 try {
-                    addLog(`🔍 获取活动 ${item.rideId} 详情...`, 'info');
+                    addLog(`🔍 获取运动记录 ${item.rideId} 详情...`, 'info');
                     const detail = await fetchActivityDetail(item.rideId, authToken);
                     const { fitUrl, startTime } = detail.data;
 
@@ -663,7 +663,7 @@
                     addLog(`  [${index+1}] ID:${item.rideId} - ${item.error}`, 'error');
                 });
             } else {
-                showToast(`第 ${currentPage} 页 ${processedItems} 个活动文件全部下载成功！`, 'success', 8000);
+                showToast(`第 ${currentPage} 页 ${processedItems} 个运动记录文件全部下载成功！`, 'success', 8000);
                 addLog(`🎉 第 ${currentPage} 页下载完成：全部成功`, 'success');
             }
 
@@ -699,7 +699,7 @@
         if (!document.querySelector('.script-download-btn')) {
             const fullButton = document.createElement('button');
             fullButton.className = 'script-download-btn ant-btn ant-btn-primary ant-btn-color-primary ant-btn-variant-solid';
-            fullButton.innerHTML = '<span class="ant-btn-icon"><i class="fa fa-download"></i></span><span>下载全部活动</span>';
+            fullButton.innerHTML = '<span class="ant-btn-icon"><i class="fa fa-download"></i></span><span>下载全部</span>';
             fullButton.onclick = downloadAllActivities;
             importButton.parentNode.insertBefore(fullButton, importButton.nextSibling);
         }
