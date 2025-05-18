@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         txt阅读器（pixiv风格）
 // @namespace    http://tampermonkey.net/
-// @version      1.0.0
+// @version      1.0.1
 // @description  访问txt时，美化阅读样式
 // @author       Yesaye
 // @match        *://*/*.txt
@@ -39,9 +39,7 @@
         padding: 0;
     }
     #text_containter {
-        position: relative;
-        left: 50%;
-        margin: 0 0 0 -30%;
+        margin: auto;
         width: 912px;
         background-color: #ffffff;
     }
