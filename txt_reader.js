@@ -6,7 +6,6 @@
 // @author       Yesaye
 // @match        *://*/*.txt
 // @match        file:///*/*.txt
-// @grant        none
 // @grant        GM_setValue
 // @grant        GM_getValue
 // @license      MIT
@@ -204,18 +203,23 @@
         // 测试localStorage可用性
         localStorage.getItem('txt_reader_theme');
     } catch (e) {
+        console.log(e);
         canUseLocalStorage = false;
     }
     if (typeof GM_getValue === 'function') {
         try {
             currentTheme = GM_getValue('txt_reader_theme', canUseLocalStorage ? localStorage.getItem('txt_reader_theme') || 'light' : 'light');
+            console.log("GM_getValue: "+currentTheme);
         } catch (e) {
+            console.log(e);
             currentTheme = 'light';
         }
     } else if (canUseLocalStorage) {
         try {
             currentTheme = localStorage.getItem('txt_reader_theme') || 'light';
+            console.log("localStorage: "+currentTheme);
         } catch (e) {
+            console.log(e);
             currentTheme = 'light';
         }
     } else {
@@ -310,12 +314,18 @@
         if (canUseLocalStorage) {
             try {
                 localStorage.setItem('txt_reader_theme', currentTheme);
-            } catch (e) { }
+                console.log("localStorage saved: "+currentTheme);
+            } catch (e) { console.log(e); }
+        } else {
+            console.log("localStorage not available");
         }
         if (typeof GM_setValue === 'function') {
             try {
                 GM_setValue('txt_reader_theme', currentTheme);
-            } catch (e) { }
+                console.log("GM_setValue saved: "+currentTheme);
+            } catch (e) { console.log(e); }
+        } else {
+            console.log("GM_setValue not available");
         }
         applyTheme(currentTheme);
     };
