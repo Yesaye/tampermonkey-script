@@ -5,6 +5,7 @@
 // @description  访问txt时，美化阅读样式，有多个主题可供切换
 // @author       Yesaye
 // @match        *://*/*.txt
+// @match        file:///*/*.txt
 // @grant        none
 // @grant        GM_setValue
 // @grant        GM_getValue
