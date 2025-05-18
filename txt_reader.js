@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         txt阅读器（仿pixiv，多主题）
 // @namespace    http://tampermonkey.net/
-// @version      2.0.0
+// @version      2.0.1
 // @description  访问txt时，美化阅读样式，有多个主题可供切换
 // @author       Yesaye
 // @match        *://*/*.txt
