@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         txt阅读器（仿pixiv但多风格）
+// @name         txt阅读器（仿pixiv，多主题）
 // @namespace    http://tampermonkey.net/
 // @version      2.0.0
 // @description  访问txt时，美化阅读样式，有多个主题可供切换

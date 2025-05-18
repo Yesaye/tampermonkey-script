@@ -1,4 +1,4 @@
-# txt阅读器（仿pixiv但多风格）
+# txt阅读器（仿pixiv，多主题）
 
 > 脚本代码地址: [https://github.com/Yesaye/tampermonkey-script](https://github.com/Yesaye/tampermonkey-script)
 
