@@ -1,6 +1,6 @@
 # iGPSPORT运动记录下载助手
 
-> 脚本代码地址: [https://github.com/Yesaye/tampermonkey-script](https://github.com/Yesaye/tampermonkey-script)
+> 脚本代码地址: <https://github.com/Yesaye/tampermonkey-script/blob/main/igpsport_downloader.js>
 
 iGPSPORT的运动记录fit文件的增加批量下载功能
 

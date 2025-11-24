@@ -1,5 +1,9 @@
 # Bilibili AI 弹幕过滤器
 
+> 脚本代码地址: <https://github.com/Yesaye/tampermonkey-script/blob/main/bilibili-dm-ai-auditor.js>
+
+根据AI大模型的判断结果，隐藏不想看到的弹幕。
+
 ## 使用说明
 
 1. 在右下角找到“AI”选项，或油猴插件中打开“AI弹幕设置”

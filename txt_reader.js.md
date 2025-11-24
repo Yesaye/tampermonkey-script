@@ -1,6 +1,6 @@
 # txt阅读器（仿pixiv，多主题）
 
-> 脚本代码地址: [https://github.com/Yesaye/tampermonkey-script](https://github.com/Yesaye/tampermonkey-script)
+> 脚本代码地址: <https://github.com/Yesaye/tampermonkey-script/blob/main/txt_reader.js>
 
 访问txt时，美化阅读样式，有多个主题可供切换
 
