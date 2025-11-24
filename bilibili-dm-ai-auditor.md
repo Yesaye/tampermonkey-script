@@ -12,3 +12,10 @@
 1. 本插件也是使用AI生成
 2. 临时想到，写一个玩玩，效果还可以，遂发布一下
 3. 建议使用本地跑的小参数模型，如图中所示，响应快还免费
+
+## 附件
+
+![alt text](assets/PixPin_2025-11-24_19-20-52.png)
+![alt text](assets/PixPin_2025-11-24_19-31-12.png)
+![alt text](assets/PixPin_2025-11-24_19-31-25.png)
+![alt text](assets/PixPin_2025-11-24_19-33-20.png)
